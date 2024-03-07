@@ -18,3 +18,7 @@ bs4
 tiktoken
 langchain-mongodb
 requests_html
+pdfkit
+pyppeteer
+bitsandbytes
+accelerate

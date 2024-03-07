@@ -13,15 +13,10 @@
 
 #----------------------------------------------------------------------------------------
 
-# Test similarity vector score
-from utils import (
-    get_embedding,
-    caculate_sentence_similarity
-)
-QUERY_1 = "Bạn cần kích hoạt JavaScript để chạy ứng dụng này."
-QUERY_2 = "You need to enable JavaScript to run this app."
-
-embedding_query_1 = get_embedding(query=QUERY_1)
-embedding_query_2 = get_embedding(query=QUERY_2)
-similar_result = caculate_sentence_similarity(vector_1=embedding_query_1, vector_2=embedding_query_2)
-print(similar_result) ### result = 0.6888
+# Test similarity vector base module
+from configs import EMBEDDING_MODEL_PATH
+from embeddings import EmbeddingModel
+from evaluator import VectorBaseEvaluator
+embedding_model = EmbeddingModel(model_file=EMBEDDING_MODEL_PATH)
+vector_base_evaluator = VectorBaseEvaluator(embedding_model=embedding_model)
+vector_base_evaluator.evaluate_csv(input_path="evaluator/test_set.csv", output_file="evaluator/test_result.csv")

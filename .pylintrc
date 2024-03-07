@@ -1,4 +1,5 @@
 [MASTER]
+init-hook='import sys; import os; sys.path.append(os.path.abspath(__file__))'
 disable=
     C0114, # missing-module-docstring
     C0116, # missing-function-docstring
@@ -9,4 +10,4 @@ disable=
     W0105, # pointless-string-statement
 
 [FORMAT]
-max-line-length=300
+max-line-length=120
