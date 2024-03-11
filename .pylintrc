@@ -1,0 +1,12 @@
+[MASTER]
+disable=
+    C0114, # missing-module-docstring
+    C0116, # missing-function-docstring
+    C0115, # missing-class-docstring
+    R0903, # too-few-public-methods
+    E0611, # no-name-in-module
+    W0621, # redefined-outer-name
+    W0105, # pointless-string-statement
+
+[FORMAT]
+max-line-length=300
