@@ -9,6 +9,7 @@ from configs import (
     DEFAULT_PROMPT_TEMPLATE,
     LLM_MODEL_PATH,
     EMBEDDING_MODEL_PATH,
+    APP_DEBUG,
 )
 from llms import LLMModel
 from prepare_vector_db import (
@@ -18,8 +19,6 @@ from prepare_vector_db import (
 from mongodb_connector import (
     vietnamese_legal_collection as collection,
 )
-from privacy_policy_processor import PrivacyPolicyProcessor
-langchain.verbose = True
 class RAGQALangChain:
 
     prompt: PromptTemplate
@@ -103,14 +102,17 @@ class RAGQALangChain:
 if __name__ == "__main__":
     import time
     # Bắt đầu đo thời gian
+    langchain.verbose = APP_DEBUG
     start_time = time.time()
     # Create LLM model
-    llm_model = LLMModel(model_file=LLM_MODEL_PATH).llm_model
+    llm_model = LLMModel(
+        model_name=LLM_MODEL_PATH
+    ).get_llm_model()
 
     # Create embedding model
     embedding_model = EmbeddingModel(
-        model_file=EMBEDDING_MODEL_PATH
-    ).embedding_model
+        model_name=EMBEDDING_MODEL_PATH
+    ).get_embedding_model()
 
     # Create vector builder mongodb and local faiss
     mongo_vector_builder = MongoDBAtlasVectorSearchBuilder(
@@ -130,12 +132,6 @@ if __name__ == "__main__":
         vector_database=mongo_vector_database
     ).create_qa_chain()
 
-    # # Create question from policy file
-    # privacy_policy_processor = PrivacyPolicyProcessor(
-    #     policy_url="https://policies.google.com/privacy?hl=vi",
-    #     vector_builder=local_vector_builder
-    # )
-    # QUESTION = privacy_policy_processor.process()
     QUESTION = "Dữ liệu cá nhân bao gồm"
 
     print('start invoke')

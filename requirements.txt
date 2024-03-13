@@ -22,3 +22,4 @@ pdfkit
 pyppeteer
 bitsandbytes
 accelerate
+argparse

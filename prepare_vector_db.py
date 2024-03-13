@@ -273,8 +273,8 @@ class FAISSVectorSearchBuilder(VectorDatabaseBuilder):
 
 if __name__ == "__main__":
     embedding_model = EmbeddingModel(
-        model_file=EMBEDDING_MODEL_PATH
-    ).embedding_model
+        model_name=EMBEDDING_MODEL_PATH
+    ).get_embedding_model()
     VECTOR_BULDER = MongoDBAtlasVectorSearchBuilder(
         embedding_model=embedding_model,
         collection=collection,

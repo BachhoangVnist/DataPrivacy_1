@@ -5,6 +5,7 @@ from .env_conf import (
     VECTOR_SEARCH_INDEX_NAME,
     PRIVACY_POLICY_COLLECTION,
     HF_TOKEN,
+    APP_DEBUG,
 )
 from .constant import (
     LOCAL_VECTOR_PATH,

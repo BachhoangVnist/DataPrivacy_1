@@ -38,7 +38,7 @@ class VectorBaseEvaluator(BaseEvaluator):
         Returns:
             float: The similarity score between the two input sentences.
         """
-        embedding_model = self.__embedding_model.embedding_model
+        embedding_model = self.__embedding_model.get_embedding_model()
         vector_1 = embedding_model.embed_query(query_1)
         vector_2 = embedding_model.embed_query(query_2)
         ouput = util.pytorch_cos_sim(vector_1, vector_2)[0][0].item()

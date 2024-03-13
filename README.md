@@ -86,6 +86,11 @@ Sau khi hoàn thành các bước trên, bạn đã sẵn sàng để chạy pro
     ```bash
     pip install -r requirements.txt
     ```
+4. Để thêm quyền thực thi cho tất cả các file `.sh`, bạn sử dụng lệnh sau:
+
+    ```bash
+    chmod +x *.sh
+    ```
 
 ## Chạy chương trình
 
@@ -94,7 +99,7 @@ Sau khi hoàn thành các bước trên, bạn đã sẵn sàng để chạy pro
 Chạy file hỏi đáp pháp luật bằng lệnh sau:
 
 ```bash
-python inference_qa.py
+./run_question_answer.sh
 ```
 
 ### Dự đoán văn bản chính sách bảo mật
@@ -102,5 +107,5 @@ python inference_qa.py
 Chạy file dự đoán văn bản chính sách bảo mật bằng lệnh sau:
 
 ```bash
-python inference_privacy_policy.py
+./run_inference_policy.sh
 ```

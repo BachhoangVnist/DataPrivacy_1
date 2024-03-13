@@ -1,40 +1,60 @@
-if __name__ == "__main__":
+from argparse import ArgumentParser
+import time
+import langchain
 
-    from ragqa_langchain import RAGQALangChain
-    from llms import LLMModel
-    from embeddings import EmbeddingModel
-    from prepare_vector_db import (
-        MongoDBAtlasVectorSearchBuilder,
-    )
-    from mongodb_connector import (
-        vietnamese_legal_collection as legal_collection,
-    )
-    from configs import (
-        LLM_MODEL_PATH,
-        EMBEDDING_MODEL_PATH,
-        VECTOR_SEARCH_INDEX_NAME,
-        DEFAULT_PROMPT_TEMPLATE,
-        LLM_MODEL_HUB,
-        QLORA_QA_PROMPT_TEMPLATE,
-    )
-    import time
+from ragqa_langchain import RAGQALangChain
+from llms import LLMModel
+from embeddings import EmbeddingModel
+from prepare_vector_db import (
+    MongoDBAtlasVectorSearchBuilder,
+)
+from mongodb_connector import (
+    vietnamese_legal_collection as legal_collection,
+)
+from configs import (
+    LLM_MODEL_PATH,
+    EMBEDDING_MODEL_PATH,
+    VECTOR_SEARCH_INDEX_NAME,
+    QLORA_QA_PROMPT_TEMPLATE,
+    APP_DEBUG,
+)
 
-    # Test environment 
-    import langchain
-    langchain.verbose = True
+def main(
+        question: str,
+        model_name: str = None,
+        embedding_model_name: str = None,
+        k_nearest: str = None,
+    ) -> None:
 
-    # Bắt đầu đo thời gian
+    if model_name is None:
+        model_name = LLM_MODEL_PATH
+
+    if embedding_model_name is None:
+        embedding_model_name = EMBEDDING_MODEL_PATH
+
+    if k_nearest is None:
+        k_nearest = 3
+    else:
+        try:
+            k_nearest = int(k_nearest)
+        except ValueError as e:
+            raise ValueError("Please enter a valid integer.") from e
+
+    langchain.verbose = APP_DEBUG
+
+    # Start measuring time
     start_time = time.time()
     # Create LLM model
     llm_model = LLMModel(
-        model_name=LLM_MODEL_PATH,
-        # model_name=LLM_MODEL_HUB,
+        model_name=model_name,
         max_new_tokens=2048,
         is_remote_model=False,
-    ).llm_model
+    ).get_llm_model()
 
     # Create embedding model
-    embedding_model = EmbeddingModel(model_file=EMBEDDING_MODEL_PATH).embedding_model
+    embedding_model = EmbeddingModel(
+        model_name=embedding_model_name
+    ).get_embedding_model()
 
     # Create vector builder mongodb and local faiss
     mongo_vector_builder = MongoDBAtlasVectorSearchBuilder(
@@ -49,18 +69,33 @@ if __name__ == "__main__":
         prompt_template=QLORA_QA_PROMPT_TEMPLATE,
         llm_model=llm_model,
         vector_database=mongo_vector_database,
-        k=2
+        k=k_nearest
     ).create_qa_chain()
 
-    loop_start_time = time.time()
-    # Create question from policy file
-    QUESTION = "Dữ liệu cá nhân là gì"
-    print('start invoke')
-    response = llm_chain.invoke({"query": QUESTION})
+    print("start invoke")
+    response = llm_chain.invoke({"query": question})
     print(response)
 
-    # Kết thúc đo thời gian
+    # End of time measurement
     end_time = time.time()
-    # Tính thời gian thực thi
+    # Calculate execution time
     execution_time = end_time - start_time
-    print("Tổng thời gian thực thi:", execution_time, "giây")
+    print("Total execution time:", execution_time, "s")
+
+
+if __name__ == "__main__":
+    # Add arguments
+    parser = ArgumentParser()
+    parser.add_argument("-q", "--query", dest="question", help="Please specify the question", metavar="str")
+    parser.add_argument("-m", "--model", dest="model_name", default=None, metavar="str")
+    parser.add_argument("-e", "--embedding", dest="embedding", default=None, metavar="str")
+    parser.add_argument("-k", "--k-nearest", dest="k_nearest", default=None, metavar="int")
+    # Analyze the arguments
+    args = parser.parse_args()
+
+    main(
+        question=args.question,
+        model_name=args.model_name,
+        embedding_model_name=args.embedding,
+        k_nearest=args.k_nearest
+    )

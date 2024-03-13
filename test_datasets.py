@@ -17,6 +17,6 @@
 from configs import EMBEDDING_MODEL_PATH
 from embeddings import EmbeddingModel
 from evaluator import VectorBaseEvaluator
-embedding_model = EmbeddingModel(model_file=EMBEDDING_MODEL_PATH)
+embedding_model = EmbeddingModel(model_name=EMBEDDING_MODEL_PATH)
 vector_base_evaluator = VectorBaseEvaluator(embedding_model=embedding_model)
 vector_base_evaluator.evaluate_csv(input_path="evaluator/test_set.csv", output_file="evaluator/test_result.csv")
