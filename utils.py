@@ -1,10 +1,6 @@
 import os
 import time
 from sentence_transformers import util
-from embeddings import embedding_model
-
-def get_embedding(query: str):
-    return embedding_model.embed_query(query)
 
 def merge_arrays_to_objects(texts: list, embedding_vectors: list) -> list:
     merged_objects = []
