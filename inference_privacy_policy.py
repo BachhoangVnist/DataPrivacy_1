@@ -3,7 +3,7 @@ from argparse import ArgumentParser
 import langchain
 
 from privacy_policy_processor import PrivacyPolicyProcessor
-from ragqa_langchain import RAGQALangChain
+from rag_langchain import RAGLangChain
 from llms import LLMModel
 from embeddings import EmbeddingModel
 from prepare_vector_db import (
@@ -49,7 +49,7 @@ def main(
             raise ValueError("Please enter a valid integer.") from e
 
     if k_nearest_policy is None:
-        k_nearest_policy = 3
+        k_nearest_policy = 6
     else:
         try:
             k_nearest_policy = int(k_nearest_policy)
@@ -82,7 +82,7 @@ def main(
 
     # Create LLM chain
     mongo_vector_database = mongo_vector_builder.get_vector_db()
-    llm_chain = RAGQALangChain(
+    llm_chain = RAGLangChain(
         prompt_template=DEFAULT_PROMPT_TEMPLATE,
         llm_model=llm_model,
         vector_database=mongo_vector_database,
@@ -135,6 +135,7 @@ def main(
     # Calculate execution time
     execution_time = end_time - start_time
     print("Total execution time:", execution_time, "s")
+    return response
 
 
 if __name__ == "__main__":

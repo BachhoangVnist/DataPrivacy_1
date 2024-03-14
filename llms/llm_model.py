@@ -11,7 +11,6 @@ from transformers import (
 from configs import (
     HF_TOKEN
 )
-
 class LLMModel:
     __model_name: str
     __llm_model: Optional[CTransformers]
@@ -32,10 +31,10 @@ class LLMModel:
 
     def get_llm_model(self) -> Optional[CTransformers]:
         return self.__llm_model
-    
+
     def get_model_name(self) -> str:
         return self.__model_name
-    
+
     def get_max_new_tokens(self) -> int:
         return self.__max_new_tokens
 

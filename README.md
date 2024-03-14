@@ -109,3 +109,30 @@ Chạy file dự đoán văn bản chính sách bảo mật bằng lệnh sau:
 ```bash
 ./run_inference_policy.sh
 ```
+
+# Hướng Dẫn Chạy API Bằng Command Line
+
+Để chạy API bằng dòng lệnh, bạn có thể sử dụng Uvicorn. Dưới đây là cách chạy API bằng Uvicorn:
+
+1. Mở terminal hoặc command prompt.
+
+2. Di chuyển đến thư mục gốc của dự án.
+
+3. Chạy lệnh sau:
+
+```bash
+uvicorn server.main:app --reload
+```
+
+Trong đó:
+
+- `server.main` là tên của module chứa ứng dụng FastAPI.
+- `app` là biến ứng dụng FastAPI trong module `server.main`.
+- `--reload` sẽ tự động tải lại server khi có sự thay đổi trong mã nguồn.
+
+Sau khi chạy lệnh này, Uvicorn sẽ khởi chạy máy chủ FastAPI, và API sẽ sẵn sàng để sử dụng trên địa chỉ `http://localhost:8000`.
+
+Để truy cập API, bạn có thể mở trình duyệt và nhập URL `http://localhost:8000` vào thanh địa chỉ.
+
+
+Lưu ý: Đảm bảo bạn đã cài đặt Uvicorn và FastAPI trước khi chạy lệnh trên.

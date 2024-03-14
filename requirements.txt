@@ -23,3 +23,5 @@ pyppeteer
 bitsandbytes
 accelerate
 argparse
+fastapi
+uvicorn

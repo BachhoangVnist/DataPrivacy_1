@@ -19,7 +19,7 @@ from prepare_vector_db import (
 from mongodb_connector import (
     vietnamese_legal_collection as collection,
 )
-class RAGQALangChain:
+class RAGLangChain:
 
     prompt: PromptTemplate
     llm_model: CTransformers
@@ -126,7 +126,7 @@ if __name__ == "__main__":
 
     # Create LLM chain
     mongo_vector_database = mongo_vector_builder.get_vector_db()
-    llm_chain = RAGQALangChain(
+    llm_chain = RAGLangChain(
         prompt_template=DEFAULT_PROMPT_TEMPLATE,
         llm_model=llm_model,
         vector_database=mongo_vector_database
