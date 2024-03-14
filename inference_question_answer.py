@@ -2,7 +2,7 @@ from argparse import ArgumentParser
 import time
 import langchain
 
-from ragqa_langchain import RAGQALangChain
+from rag_langchain import RAGLangChain
 from llms import LLMModel
 from embeddings import EmbeddingModel
 from prepare_vector_db import (
@@ -65,7 +65,7 @@ def main(
 
     # Create LLM chain
     mongo_vector_database = mongo_vector_builder.get_vector_db()
-    llm_chain = RAGQALangChain(
+    llm_chain = RAGLangChain(
         prompt_template=QLORA_QA_PROMPT_TEMPLATE,
         llm_model=llm_model,
         vector_database=mongo_vector_database,
@@ -81,6 +81,7 @@ def main(
     # Calculate execution time
     execution_time = end_time - start_time
     print("Total execution time:", execution_time, "s")
+    return response
 
 
 if __name__ == "__main__":
