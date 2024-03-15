@@ -25,3 +25,7 @@ accelerate
 argparse
 fastapi
 uvicorn
+pyngrok
+colabcode
+pydantic
+pydantic-settings

@@ -10,3 +10,4 @@ MONGODB_PWD = os.environ.get("MONGODB_PWD")
 VECTOR_SEARCH_INDEX_NAME = os.environ.get("ATLAS_VECTOR_SEARCH_INDEX_NAME")
 HF_TOKEN = os.environ.get("HF_TOKEN")
 APP_DEBUG = os.environ.get("APP_DEBUG") == "True"
+NGROK_AUTHTOKEN = os.environ.get("NGROK_AUTHTOKEN")

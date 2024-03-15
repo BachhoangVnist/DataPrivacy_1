@@ -12,10 +12,10 @@ from prepare_vector_db import (
 )
 
 from configs import (
-    LLM_MODEL_PATH,
+    LLM_MODEL_HUB,
     EMBEDDING_MODEL_PATH,
     VECTOR_SEARCH_INDEX_NAME,
-    DEFAULT_PROMPT_TEMPLATE,
+    QLORA_QA_PROMPT_TEMPLATE,
     APP_DEBUG
 )
 
@@ -35,7 +35,7 @@ def main(
     ) -> None:
 
     if model_name is None:
-        model_name = LLM_MODEL_PATH
+        model_name = LLM_MODEL_HUB
 
     if embedding_model_name is None:
         embedding_model_name = EMBEDDING_MODEL_PATH
@@ -83,7 +83,7 @@ def main(
     # Create LLM chain
     mongo_vector_database = mongo_vector_builder.get_vector_db()
     llm_chain = RAGLangChain(
-        prompt_template=DEFAULT_PROMPT_TEMPLATE,
+        prompt_template=QLORA_QA_PROMPT_TEMPLATE,
         llm_model=llm_model,
         vector_database=mongo_vector_database,
         k=k_nearest_legal

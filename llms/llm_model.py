@@ -20,12 +20,11 @@ class LLMModel:
             self,
             model_name: str,
             max_new_tokens: int = 1024,
-            is_remote_model: bool = False,
         ) -> None:
         self.__model_name = model_name
         self.__max_new_tokens = max_new_tokens
         self.__llm_model = (
-            self.__load_hub_model() if is_remote_model else
+            self.__load_hub_model() if torch.cuda.is_available() else
             self.__load_llm()
         )
 
@@ -89,8 +88,6 @@ class LLMModel:
         """
         if max_new_tokens is None:
             max_new_tokens = self.__max_new_tokens
-
-        # DEVICE = "cuda:0" if torch.cuda.is_available() else "cpu"
 
         bnb_config = BitsAndBytesConfig(
             load_in_4bit=True,
