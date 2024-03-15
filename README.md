@@ -1,3 +1,4 @@
+## Dự án liên quan đến privacy
 # Chương Trình Kiến Trúc RAG
 
 ## Giới thiệu
