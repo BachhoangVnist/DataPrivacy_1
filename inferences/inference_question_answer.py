@@ -12,7 +12,7 @@ from mongodb_connector import (
     vietnamese_legal_collection as legal_collection,
 )
 from configs import (
-    LLM_MODEL_PATH,
+    LLM_MODEL_HUB,
     EMBEDDING_MODEL_PATH,
     VECTOR_SEARCH_INDEX_NAME,
     QLORA_QA_PROMPT_TEMPLATE,
@@ -27,7 +27,7 @@ def main(
     ) -> None:
 
     if model_name is None:
-        model_name = LLM_MODEL_PATH
+        model_name = LLM_MODEL_HUB
 
     if embedding_model_name is None:
         embedding_model_name = EMBEDDING_MODEL_PATH
@@ -48,7 +48,6 @@ def main(
     llm_model = LLMModel(
         model_name=model_name,
         max_new_tokens=2048,
-        is_remote_model=False,
     ).get_llm_model()
 
     # Create embedding model

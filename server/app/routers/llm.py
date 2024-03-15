@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from server.app import schemas
-from inference_privacy_policy import main as inference_policy
-from inference_question_answer import main as inference_question
+from inferences.inference_privacy_policy import main as inference_policy
+from inferences.inference_question_answer import main as inference_question
 
 router = APIRouter(
     prefix="/llm",

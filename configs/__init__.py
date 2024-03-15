@@ -6,6 +6,7 @@ from .env_conf import (
     PRIVACY_POLICY_COLLECTION,
     HF_TOKEN,
     APP_DEBUG,
+    NGROK_AUTHTOKEN,
 )
 from .constant import (
     LOCAL_VECTOR_PATH,
