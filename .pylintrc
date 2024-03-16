@@ -8,6 +8,7 @@ disable=
     E0611, # no-name-in-module
     W0621, # redefined-outer-name
     W0105, # pointless-string-statement
+    E0401, # import-error
 
 [FORMAT]
 max-line-length=120
